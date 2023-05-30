@@ -1,8 +1,9 @@
 import React from 'react';
 
 export interface BoxProps {
-  text: string;
+  title: string;
   width?: string;
+  height?: string;
   borderRadius?: string;
   padding?: string;
   backgroundColor?: string;
@@ -10,13 +11,27 @@ export interface BoxProps {
 
 const Box = (props: BoxProps) => {
   const style = {
-    width: props.width,
+    width: props.width || '100px',
+    height: props.height || '100px',
     borderRadius: props.borderRadius || '0px',
-    padding: props.padding || '8px 20px',
     background: props.backgroundColor || '#000',
+    position: 'relative',
   };
 
-  return <div style={style}>{props.text}</div>;
+  const bottomStyle = {
+    position: 'absolute',
+    width: '100%',
+    height: '10px',
+    bottom: '0',
+    cursor: 'ns-resize',
+  };
+
+  return (
+    <div style={style}>
+      {props.title}
+      <div style={bottomStyle}></div>
+    </div>
+  );
 };
 
 export default Box;

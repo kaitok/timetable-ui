@@ -13,6 +13,6 @@ type Story = StoryObj<typeof Box>;
 
 export const Primary: Story = {
   args: {
-    text: 'test',
+    title: 'test',
   },
 };
