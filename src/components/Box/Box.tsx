@@ -29,7 +29,7 @@ const Box = (props: BoxProps) => {
   };
 
   const handleDrag = (event) => {
-    const dragAmount = event.clientY - 110;
+    const dragAmount = Math.round((event.clientY - 110) / 15) * 15;
     const newHeight = 100 + dragAmount;
     setDragHeight(newHeight);
   };
