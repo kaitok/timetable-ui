@@ -1,44 +1,64 @@
 import React, { useState } from 'react';
+import '../../global-style.css';
+import styles from './Box.module.css';
 
 export interface BoxProps {
   title: string;
   width?: string;
-  height?: string;
   borderRadius?: string;
-  padding?: string;
   backgroundColor?: string;
+  color?: string;
+  fontSize?: string;
 }
 
 const Box = (props: BoxProps) => {
   const [dragHeight, setDragHeight] = useState(100);
+  const [prevBoxHeight, setPrevBoxHeight] = useState(100);
 
-  const style = {
-    width: props.width || '100px',
-    height: `${dragHeight}px`,
-    borderRadius: props.borderRadius || '0px',
-    background: props.backgroundColor || '#000',
-    position: 'relative',
+  const commonStyle = {
+    width: props.width || '90px',
+    borderRadius: props.borderRadius || '4px',
+    backgroundColor: props.backgroundColor || '#000',
+    color: props.color || '#fff',
   };
 
-  const bottomStyle = {
-    position: 'absolute',
-    width: '100%',
-    height: '10px',
-    bottom: '0',
-    cursor: 'ns-resize',
+  const boxStyle = {
+    ...commonStyle,
+    height: `${dragHeight}px`,
+  };
+
+  const prevBoxStyle = {
+    ...commonStyle,
+    height: `${prevBoxHeight}px`,
+  };
+
+  const boxDescription = {
+    fontSize: props.fontSize || '12px',
+    padding: '10px',
   };
 
   const handleDrag = (event) => {
-    const dragAmount = Math.round((event.clientY - 110) / 15) * 15;
+    const dragAmount = Math.round((event.clientY - 115) / 10) * 10;
     const newHeight = 100 + dragAmount;
     setDragHeight(newHeight);
   };
+  const handleDragEnd = (event) => {
+    setPrevBoxHeight(dragHeight);
+  };
 
   return (
-    <div style={style}>
-      {props.title}
-      <div draggable={true} onDrag={handleDrag} style={bottomStyle}></div>
-    </div>
+    <>
+      <div style={boxStyle} className={styles.box}>
+        <div style={prevBoxStyle} className={styles.prevBox}></div>
+        <div style={boxDescription}>{props.title}</div>
+        <div
+          draggable={true}
+          onDragEnd={handleDragEnd}
+          onDrag={handleDrag}
+          className={styles.bottom}
+        ></div>
+      </div>
+    </>
   );
 };
 

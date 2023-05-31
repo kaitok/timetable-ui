@@ -13,6 +13,8 @@ type Story = StoryObj<typeof Box>;
 
 export const Primary: Story = {
   args: {
-    title: 'test',
+    title: 'title',
+    width: '90px',
+    borderRadius: '4px',
   },
 };
