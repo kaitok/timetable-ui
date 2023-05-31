@@ -1,0 +1,10 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns:  1fr;
+  gap: 0;
+}
+
+.gridCell {
+  border: 1px solid #a8a8a8;
+  border-width: 1px 1px 0 1px;
+}
